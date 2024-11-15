@@ -88,7 +88,7 @@
     a:hover {
         text-decoration: none;
     }
-    
+    /*caricamento*/
     #loadingOverlay {
         display: none;
         position: fixed;
@@ -117,7 +117,7 @@
         <div class="card">
             <div class="file">
                 <br>
-                <center><p class="h3">Test upload</p></center>
+                <center><p class="h3">Class upload</p></center>
                 <div class="icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" fill="currentColor" class="bi bi-file-earmark-arrow-up-fill text-success" viewBox="0 0 16 16">
                         <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM6.354 9.854a.5.5 0 0 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 8.707V12.5a.5.5 0 0 1-1 0V8.707L6.354 9.854z"></path>
@@ -165,15 +165,7 @@
                         <input type="file" name="file" id="fileInput">
                     </div>
                     <div class="form-group mt-3">
-                        <label class="mr-2">Upload your test Randoop (.zip) :</label>
-                        <input type="file" name="test" id="testInput">
-                    </div>
-                    <div class="form-group mt-3">
-                        <label class="mr-2">Upload your test Evosuite (.zip) :</label>
-                        <input type="file" name="testEvo" id="testInputEvo">
-                    </div>
-                    <div class="form-group mt-3">
-                        <button type="button" onclick="uploadTest()" class="btn btn-success">Upload class and tests</button>
+                        <button type="button" onclick="uploadFile()" class="btn btn-success">Upload class</button>
                         <button type="button" onclick="goBack()" class="btn btn-secondary">Go Back</button>
                     </div>
                 </form>
@@ -185,25 +177,8 @@
                 <p>Caricamento in corso...</p>
             </div>
         </div>
-        <!-- Modal di conferma --> <!-- modifica 5-11 messaggio di successo per uploadClasseandTest-->
-        <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="successModalLabel">Successo</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        La classe è stata aggiunta correttamente.
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" onclick="redirectToClass()">OK</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div id="successMessage" style="display:none; color: green;">Class uploaded successfully!</div>
+        <div id="errorMessage" style="display:none; color: red;">Error uploading class. Please try again.</div>
         <br>
     </div>
 </div>
@@ -212,7 +187,11 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript"></script>
 <script>
-    function uploadTest(event) {
+    //Si aggancia al form tramite ID
+    const form = document.getElementById('formId');
+    //Funzione per l'upload della classe e generazione dei test
+    function uploadFile(event) {
+        //Creazione delle costanti che rappresentano i dati input al form
         const name = document.getElementById('className').value;
         const date = document.getElementById('date').value;
         const difficulty = document.getElementById('difficulty').value;
@@ -223,16 +202,10 @@
             document.getElementById('category2').value,
             document.getElementById('category3').value
         ];
-        
-        const classInput = document.getElementById('fileInput');
-        const file = classInput.files[0];
-        
-        const testInput = document.getElementById('testInput');
-        const test = testInput.files[0];
-        
-        const testInputEvo = document.getElementById('testInputEvo');
-        const testEvo = testInputEvo.files[0];
-        
+        //Costante che rappresenta il file .java in input
+        const fileInput = document.getElementById('fileInput');
+        const file = fileInput.files[0];
+        //Costante che rappresenta l'insieme dei dati del form e il file in input
         const formData = new FormData();
         formData.append('file', file);
         formData.append('model', JSON.stringify({
@@ -243,35 +216,40 @@
             description: description,
             category: category
         }));
-        formData.append('test', test);
-        formData.append('testEvo', testEvo);
-        
+        //Chiamata HTTP alla funzione uploadFile in HomeController con metodo POST e dati del form come body
+        // Mostra la schermata di caricamento prima della richiesta POST
         document.getElementById('loadingOverlay').style.display = 'block';
         $.ajax({
-            url: '/uploadTest',
+            url: '/uploadFile',
             type: 'POST',
             data: formData,
             processData: false,
             contentType: false,
             success: function(data) {
                 console.log('Success:', data);
+                // Nascondi la schermata di caricamento dopo il caricamento
                 $('#loadingOverlay').hide();
-                $('#successModal').modal('show');
+                showSuccessMessage();
+                window.location.href = '/class';
+                // Aggiungi qui il codice per gestire la risposta dal server
             },
             error: function(error) {
                 console.error('Error:', error);
+                // Nascondi la schermata di caricamento in caso di errore
                 $('#loadingOverlay').hide();
-                alert('Si è verificato un errore durante la richiesta. Classe già presente nel sistema."'); //modifica 8-11
+                showErrorMessage();
+                // Aggiungi qui il codice per gestire gli errori
             }
         });
     }
-
     function goBack() {
         window.history.back();
     }
-
-    function redirectToClass() {
-        window.location.href = '/class'; //modifica 5-11
+    function showSuccessMessage() {
+        document.getElementById('successMessage').style.display = 'block';
+    }
+    function showErrorMessage() {
+        document.getElementById('errorMessage').style.display = 'block';
     }
 </script>
 </body>
