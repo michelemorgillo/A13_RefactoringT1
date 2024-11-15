@@ -1,0 +1,66 @@
+spring:
+  application:
+    name: api-gateway
+
+server:
+  port: 8090
+
+ribbon:
+  eureka:
+    enabled: false
+
+zuul: 
+  host:
+    connect-timeout-millis: 600000 
+    socket-timeout-millis: 600000
+  routes:
+    jacoco-service:
+      sensitiveHeaders:
+      path: /api/getJaCoCoReport/**
+      url: http://t6-g12-app-1:80/
+    receiveClass-service:
+      sensitiveHeaders:
+      path: /api/receiveClassUnderTest/**
+      url: http://t6-g12-app-1:80/receiveClassUnderTest
+    calculateScalataFinalScore-service:
+      sensitiveHeaders:
+      path: /api/calculateScalataFinalScore/**
+      url: http://t6-g12-app-1:80/calculateScalataFinalScore
+    sendInfo-service:
+      sensitiveHeaders:
+      path: /api/sendInfo/**
+      url: http://t6-g12-app-1:80/sendInfo
+    saveData-service:
+      sensitiveHeaders:
+      path: /api/save-data/**
+      url: http://t5-app-1:8080/save-data
+    saveScalata-service:
+      sensitiveHeaders:
+      path: /api/save-scalata/**
+      url: http://t5-app-1:8080/save-scalata
+    downloadFile-service:
+      sensitiveHeaders:
+      path: /api/downloadFile/**
+      url: http://manvsclass-controller-1:8080/downloadFile
+    run-service:
+      sensitiveHeaders:
+      path: /api/run/**
+      url: http://t6-g12-app-1:80/run
+    loadingresult-service:
+      sensitiveHeaders:
+      path: /api/VolumeT8/FolderTreeEvo/**
+      url:  http://prototipo20-t8_generazione-1:3080/api/VolumeT8/FolderTreeEvo
+    compile-and-codecoverage-service:
+      sensitiveHeaders:
+      path: /api/compile-and-codecoverage/**
+      url: http://remoteccc-app-1:1234/compile-and-codecoverage
+eureka:
+  client:
+    enabled: false
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: DEBUG  # Abilita il logging per richieste web
+    com.netflix.zuul: DEBUG         # Abilita il logging per Zuul
+    org.springframework.cloud.netflix.zuul.filters: DEBUG  # Abilita il logging per i filtri Zuul

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org" data-bs-theme="dark">
+	<head>
+		<div th:replace="fragments/header :: header"></div>
+		<title>Gamemode</title>
+	</head>
+	<body>
+		<!-- NAVBAR -->z
+		<div th:replace="fragments/navbar :: navbar"></div>
+		<div class="container-fluid mt-3">
+			<div class="row justify-content-center row-cols-3">
+				<div class="col"></div>
+				<div class="col">
+					<!-- Scheda nuovo gioco -->
+					<div class="card" id="scheda_nuovo">
+						<h5
+							class="card-header text-center selectedMode"
+						></h5>
+						<div class="card-body">
+							<!-- Form di selezione -->
+							<div class="row">
+								<div class="col">
+									<h3 class="text-center mb-4" th:text="#{partita}"></h3>
+									<div
+										class="alert alert-warning d-none"
+										role="alert"
+										id="alert_nuova"
+										th:text="#{chiudi_partita}"
+									>
+									</div>
+									<form>
+										<!-- Selezione Classe UT -->
+										<div class="form-group mb-3">
+											<label
+												for="select_class"
+												th:text="#{selezione_classeUT}"
+											></label>
+											<select class="form-control" id="select_class">
+												<option value="" th:text="#{opzioni}"></option>
+												<th:block th:each="option : ${lista_classi}">
+													<option
+														th:value="${option.name}"
+														th:text="${option.name}"
+													></option>
+												</th:block>
+											</select>
+										</div>
+
+										<!-- Selezione Robot -->
+										<div class="form-group mb-3" id="robot_selector">
+											<label for="select_robot" th:text="#{robot}"></label>
+											<select class="form-control" id="select_robot">
+												<option value="" th:text="#{opzioni}"></option>
+												<th:block th:each="option : ${lista_robot}">
+													<option
+														th:value="${option}"
+														th:text="${option}"
+													></option>
+												</th:block>
+											</select>
+										</div>
+
+										<!-- Selezione Difficoltà -->
+										<div class="form-group mb-3" id="difficulty_selector">
+											<label for="select_diff" th:text="#{difficoltà}"></label>
+											<select class="form-control" id="select_diff">
+												<option value="" th:text="#{opzioni}"></option>
+												<option value="1" th:text="#{d_facile}"></option>
+												<option value="2" th:text="#{d_medio}"></option>
+												<option value="3" th:text="#{d_difficile}"></option>
+											</select>
+										</div>
+
+										<!-- Link editor -->
+										<div class="text-center pt-2">
+											<a
+												id="link_editor"
+												class="btn btn-primary disabled"
+												href="#"
+												role="button"
+											>
+												<i class="bi bi-play-fill" th:text="#{inizia_partita}"></i>
+											</a>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Scheda continua gioco-->
+					<div class="card d-none" id="scheda_continua">
+						<h5
+							class="card-header text-center selectedMode"
+						></h5>
+						<div class="card-body">
+							<!-- Form di selezione -->
+							<div class="row">
+								<div class="col">
+									<h3 class="text-center mb-4" th:text="#{gamemode_alert}"></h3>
+									<div class="row">
+										<ul class="list-group list-group-flush">
+											<li class="list-group-item">
+												<label th:text="#{gamemode_classeUT}"> </label>
+												<span id="gamemode_classeUT"> </span>
+											</li>
+											<li class="list-group-item">
+												<label> Robot: </label>
+												<span id="gamemode_robot"> </span>
+											</li>
+											<li class="list-group-item">
+												<label th:text="#{gamemode_difficulty}"></label>
+												<span id="gamemode_difficulty"> </span>
+											</li>
+											<li class="list-group-item">
+												<label th:text="#{modalità}"></label>
+												<span id="gamemode_modalita"> </span>
+											</li>
+										</ul>
+									</div>
+
+									<div class="d-flex gap-5 justify-content-between">
+										<!-- Set new Game-->
+										<div class="text-center pt-2">
+											<button
+												type="button"
+												class="btn btn-primary"
+												id="new_game"
+											>
+												<i class="bi bi-plus-lg" th:text="#{nuova_partita}"></i>
+											</button>
+										</div>
+										<!-- Link editor -->
+										<div class="text-center pt-2">
+											<a
+												class="btn btn-primary"
+												href="#"
+												role="button"
+												id="Continua"
+											>
+												<i class="bi bi-play-fill" th:text="#{riprendi_partita}"></i>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col"></div>
+			</div>
+		</div>
+		<div th:replace="fragments/footer :: footer"></div>
+		<script
+			th:src="@{/t5/js/Gamemode_logic.js}"
+			th:inline="javascript"
+		>
+		</script>
+		<script
+		th:src="@{/t5/js/Util_Editor.js}"
+		th:inline="javascript"
+	>
+	</script>
+		
+	</body>
+</html>

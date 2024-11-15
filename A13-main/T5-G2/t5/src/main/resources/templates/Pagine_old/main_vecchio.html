@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+ <head th:replace="fragments/header :: header">
+
+  <body class="bg-dark p-3">
+
+    <div th:replace="fragments/navbar :: navbar"></div>
+
+    <h1> PROVA2 </h1>
+    <!-- DASHBOARD -->
+    <div class="container-fluid">
+        <div class="row">
+            <!-- CARD 1 -->
+            <div class = "col-4 p-3">
+                <div class="card">
+                    <h5 class="card-header"> Partita Singola </h5>
+                    <div class="card-body">
+                    <p class="card-text"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                        Nam rhoncus pellentesque lacus, non pharetra ligula cursus eu. Fusce vulputate feugiat augue a vestibulum.
+                         Integer molestie magna eget nisl pellentesque ornare.  </p>
+                    </div>
+                    <div class="card-footer text-end">
+                        <a class="btn btn-info me-md-2" href="./gamemode" role="button">
+                            <i class="bi bi-play-fill text-light"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- CARD 2 -->
+            <div class = "col-4 p-3">
+                <div class="card">
+                    <h5 class="card-header"> Scalata </h5>
+                    <div class="card-body">
+                    <p class="card-text"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                        Nam rhoncus pellentesque lacus, non pharetra ligula cursus eu. Fusce vulputate feugiat augue a vestibulum.
+                        Integer molestie magna eget nisl pellentesque ornare.  </p>
+                    </div>
+                    <div class="card-footer text-end">
+                        <button class="btn btn-info me-md-2" type="button">
+                            <i class="bi bi-play-fill  text-light"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- CARD 3 -->
+            <div class = "col-4 p-3">
+                <div class="card">
+                    <h5 class="card-header"> Allenamento </h5>
+                    <div class="card-body">
+                    <p class="card-text"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                        Nam rhoncus pellentesque lacus, non pharetra ligula cursus eu. Fusce vulputate feugiat augue a vestibulum.
+                        Integer molestie magna eget nisl pellentesque ornare.  </p>
+                    </div>
+                    <div class="card-footer text-end">
+                        <button class="btn btn-info me-md-2" type="button">
+                            <i class="bi bi-play-fill  text-light"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>   
+            <!-- CARD 4 -->
+            <div class = "col-4 p-3">
+                <div class="card">
+                    <h5 class="card-header"> Multiplayer </h5>
+                    <div class="card-body">
+                    <p class="card-text"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                        Nam rhoncus pellentesque lacus, non pharetra ligula cursus eu. Fusce vulputate feugiat augue a vestibulum.
+                        Integer molestie magna eget nisl pellentesque ornare.  </p>
+                    </div>
+                    <div class="card-footer text-end">
+                        <button class="btn btn-info me-md-2" type="button">
+                            <i class="bi bi-play-fill  text-light"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </div>
+
+   
+    <div th:replace="fragments/footer :: footer"></div>
+    </body>
+</html>
