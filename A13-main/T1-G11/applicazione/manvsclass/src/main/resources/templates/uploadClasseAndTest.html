@@ -185,7 +185,7 @@
                 <p>Caricamento in corso...</p>
             </div>
         </div>
-        <!-- Modal di conferma --> <!-- modifica 5-11 messaggio di successo per uploadClasseandTest-->
+         <!--MODIFICA (05/11/2024) messaggio di successo per uploadClasseandTest -->
         <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -261,17 +261,18 @@
             error: function(error) {
                 console.error('Error:', error);
                 $('#loadingOverlay').hide();
-                alert('Si è verificato un errore durante la richiesta. Classe già presente nel sistema."'); //modifica 8-11
+                //MODIFICA (05/11/2024) messaggio per classe duplicata
+                alert('Si è verificato un errore durante la richiesta. Classe già presente nel sistema."');
             }
         });
     }
 
     function goBack() {
-        window.history.back();
+        window.history.back();    //MODIFICA (05/11/2024) tasto Go Back
     }
 
     function redirectToClass() {
-        window.location.href = '/class'; //modifica 5-11
+        window.location.href = '/class';
     }
 </script>
 </body>
