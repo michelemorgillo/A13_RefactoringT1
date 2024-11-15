@@ -1,3 +1,6 @@
+/*MODIFICA (5/11/2024) - Refactoring task T1
+ * ScalataService ora si occupa di implementare i servizi relativi alla modalità scalata
+ */
 package com.groom.manvsclass.service;
 
 import com.groom.manvsclass.model.Scalata;
